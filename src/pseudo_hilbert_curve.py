@@ -199,24 +199,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |          |
                 |__________|
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start][y_start + 1] = d
-                d += 1
-                self.map[x_start][y_start + 2] = d
-                d += 1
-                self.map[x_start - 1][y_start + 2] = d
-                d += 1
-                self.map[x_start - 2][y_start + 2] = d
-                d += 1
-                self.map[x_start - 2][y_start + 1] = d
-                d += 1
-                self.map[x_start - 1][y_start + 1] = d
-                d += 1
-                self.map[x_start - 1][y_start] = d
-                d += 1
-                self.map[x_start - 2][y_start] = d
-                d += 1
+                up_clockwise = [[0, 0], [0, 1], [0, 2], [-1, 2], [-2, 2], [-2, 1], [-1, 1], [-1, 0], [-2, 0]]
+                for x, y in up_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.UP and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
                 _____
@@ -225,24 +211,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |          |
                 |__________|
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start + 1][y_start] = d
-                d += 1
-                self.map[x_start + 1][y_start + 1] = d
-                d += 1
-                self.map[x_start][y_start + 1] = d
-                d += 1
-                self.map[x_start][y_start + 2] = d
-                d += 1
-                self.map[x_start + 1][y_start + 2] = d
-                d += 1
-                self.map[x_start + 2][y_start + 2] = d
-                d += 1
-                self.map[x_start + 2][y_start + 1] = d
-                d += 1
-                self.map[x_start + 2][y_start] = d
-                d += 1
+                up_counter_clockwise = [[0, 0], [1, 0], [1, 1], [0, 1], [0, 2], [1, 2], [2, 2], [2, 1], [2, 0]]
+                for x, y in up_counter_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
                 '''
                  ____
@@ -252,24 +224,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |
                 |___________
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start - 1][y_start] = d
-                d += 1
-                self.map[x_start - 2][y_start] = d
-                d += 1
-                self.map[x_start - 2][y_start - 1] = d
-                d += 1
-                self.map[x_start - 2][y_start - 2] = d
-                d += 1
-                self.map[x_start - 1][y_start - 2] = d
-                d += 1
-                self.map[x_start - 1][y_start - 1] = d
-                d += 1
-                self.map[x_start][y_start - 1] = d
-                d += 1
-                self.map[x_start][y_start - 2] = d
-                d += 1
+                right_clockwise = [[0, 0], [-1, 0], [-2, 0], [-2, -1], [-2, -2], [-1, -2], [-1, -1], [0, -1], [0, -2]]
+                for x, y in right_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.RIGHT and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
                  ____
@@ -279,24 +237,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |
                 |___________
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start][y_start + 1] = d
-                d += 1
-                self.map[x_start - 1][y_start + 1] = d
-                d += 1
-                self.map[x_start - 1][y_start] = d
-                d += 1
-                self.map[x_start - 2][y_start] = d
-                d += 1
-                self.map[x_start - 2][y_start + 1] = d
-                d += 1
-                self.map[x_start - 2][y_start + 2] = d
-                d += 1
-                self.map[x_start - 1][y_start + 2] = d
-                d += 1
-                self.map[x_start][y_start + 2] = d
-                d += 1
+                right_counter_clockwise = [[0, 0], [0, 1], [-1, 1], [-1, 0], [-2, 0], [-2, 1], [-2, 2], [-1, 2], [0, 2]]
+                for x, y in right_counter_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.DOWN and sense_of_rotation == self.CLOCKWISE:
                 '''
                  _____________
@@ -305,24 +249,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |      |
                 |      |______
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start][y_start - 1] = d
-                d += 1
-                self.map[x_start][y_start - 2] = d
-                d += 1
-                self.map[x_start + 1][y_start - 2] = d
-                d += 1
-                self.map[x_start + 2][y_start - 2] = d
-                d += 1
-                self.map[x_start + 2][y_start - 1] = d
-                d += 1
-                self.map[x_start + 1][y_start - 1] = d
-                d += 1
-                self.map[x_start + 1][y_start] = d
-                d += 1
-                self.map[x_start + 2][y_start] = d
-                d += 1
+                down_clockwise = [[0, 0], [0, -1], [0, -2], [1, -2], [2, -2], [2, -1], [1, -1], [1, 0], [2, 0]]
+                for x, y in down_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
                  _____________
@@ -331,24 +261,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |      |
                 |      |______
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start - 1][y_start] = d
-                d += 1
-                self.map[x_start - 1][y_start - 1] = d
-                d += 1
-                self.map[x_start][y_start - 1] = d
-                d += 1
-                self.map[x_start][y_start - 2] = d
-                d += 1
-                self.map[x_start - 1][y_start - 2] = d
-                d += 1
-                self.map[x_start - 2][y_start - 2] = d
-                d += 1
-                self.map[x_start - 2][y_start - 1] = d
-                d += 1
-                self.map[x_start - 2][y_start] = d
-                d += 1
+                down_counter_clockwise = [[0, 0], [-1, 0], [-1, -1], [0, -1], [0, -2], [-1, -2], [-2, -2], [-2, -1], [-2, 0]]
+                for x, y in down_counter_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.LEFT and sense_of_rotation == self.CLOCKWISE:
                 '''
                 ____________
@@ -358,24 +274,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |     |     |
                 |     |_____|
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start + 1][y_start] = d
-                d += 1
-                self.map[x_start + 2][y_start] = d
-                d += 1
-                self.map[x_start + 2][y_start + 1] = d
-                d += 1
-                self.map[x_start + 2][y_start + 2] = d
-                d += 1
-                self.map[x_start + 1][y_start + 2] = d
-                d += 1
-                self.map[x_start + 1][y_start + 1] = d
-                d += 1
-                self.map[x_start][y_start + 1] = d
-                d += 1
-                self.map[x_start][y_start + 2] = d
-                d += 1
+                left_clockwise = [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2], [1, 2], [1, 1], [0, 1], [0, 2]]
+                for x, y in left_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             elif direction == self.LEFT and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
                 ____________
@@ -385,24 +287,10 @@ class PseudoPeanoHilbertCurve(Curve):
                 |     |     |
                 |     |_____|
                 '''
-                self.map[x_start][y_start] = d
-                d += 1
-                self.map[x_start][y_start - 1] = d
-                d += 1
-                self.map[x_start + 1][y_start - 1] = d
-                d += 1
-                self.map[x_start + 1][y_start] = d
-                d += 1
-                self.map[x_start + 2][y_start] = d
-                d += 1
-                self.map[x_start + 2][y_start - 1] = d
-                d += 1
-                self.map[x_start + 2][y_start - 2] = d
-                d += 1
-                self.map[x_start + 1][y_start - 2] = d
-                d += 1
-                self.map[x_start][y_start - 2] = d
-                d += 1
+                left_counter_clockwise = [[0, 0], [0, -1], [1, -1], [1, 0], [2, 0], [2, -1], [2, -2], [1, -2], [0, -2]]
+                for x, y in left_counter_clockwise:
+                    self.map[x_start + x][y_start + y] = d
+                    d += 1
             else:
                 raise Exception("Invalid sense of rotation or direction")
 
@@ -454,6 +342,7 @@ class PseudoPeanoHilbertCurve(Curve):
                     r2_direction = self.DOWN
                 if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
                     r1_direction = self.LEFT
+
             if r.get_dimension() == problem_dimension_2:
                 if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
                     r1_direction = self.UP
