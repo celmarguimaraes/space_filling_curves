@@ -1,3 +1,5 @@
+from src.curve_utils.dimension import Dimension
+
 class Rectangle:
     '''Área da curva Pseudo Hilbert em forma de retângulo'''
     x1: int
@@ -18,3 +20,6 @@ class Rectangle:
 
     def get_width(self):
         return abs(self.x2 - self.x1 + 1)
+
+    def get_dimension(self):
+        return Dimension(self.get_width(), self.get_height())
