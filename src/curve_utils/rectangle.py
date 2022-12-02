@@ -12,3 +12,9 @@ class Rectangle:
     
     def __str__(self) -> str:
         return f'{self.x1}, {self.y1} -> {self.x2}, {self.y2}'
+
+    def get_height(self):
+        return abs(self.y2 - self.y1 + 1)
+
+    def get_width(self):
+        return abs(self.x2 - self.x1 + 1)
