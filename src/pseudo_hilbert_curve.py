@@ -436,58 +436,52 @@ class PseudoPeanoHilbertCurve(Curve):
             r3_direction = direction
             r4_direction = self.rotate_direction(direction=direction, clockwise=not sense_of_rotation, step=1)
 
-            # if direction == self.UP:
-            #     if rectangles[0].get_width() == 1 and rectangles[1].get_width() == 1:
-            #         r2_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[1].get_height() == 1 and rectangles[2].get_height() == 1:
-            #         r3_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[2].get_width() == 1 and rectangles[3].get_width() == 1:
-            #         r4_direction = self.rotate_direction(direction=direction, clockwise=not sense_of_rotation, step=2)
-            #     else:
-            #         pass
-            # if direction == self.RIGHT:
-            #     if rectangles[0].get_height() == 1 and rectangles[1].get_height() == 1:
-            #         r2_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[1].get_width() == 1 and rectangles[2].get_width() == 1:
-            #         r3_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[2].get_height() == 1 and rectangles[3].get_height() == 1:
-            #         r4_direction = self.rotate_direction(direction=direction, clockwise=not sense_of_rotation, step=2)
-            #     else:
-            #         pass
-            # if direction == self.DOWN:
-            #     if rectangles[0].get_width() == 1 and rectangles[1].get_width() == 1:
-            #         r2_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[1].get_height() == 1 and rectangles[2].get_height() == 1:
-            #         r3_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[2].get_width() == 1 and rectangles[3].get_width() == 1:
-            #         r4_direction = self.rotate_direction(direction=direction, clockwise=not sense_of_rotation, step=2)
-            #     else:
-            #         pass
-            # if direction == self.LEFT:
-            #     if rectangles[0].get_height() == 1 and rectangles[1].get_height() == 1:
-            #         r2_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[1].get_width() == 1 and rectangles[2].get_width() == 1:
-            #         r3_direction = self.rotate_direction(direction=direction, clockwise=sense_of_rotation, step=2)
-            #     elif rectangles[2].get_height() == 1 and rectangles[3].get_height() == 1:
-            #         r4_direction = self.rotate_direction(direction=direction, clockwise=not sense_of_rotation, step=2)
-            #     else:
-            #         pass
+            r1_sense_of_rotation = not sense_of_rotation
+            r2_sense_of_rotation = sense_of_rotation
+            r3_sense_of_rotation = sense_of_rotation
+            r4_sense_of_rotation = not sense_of_rotation
+
+            problem_dimension_1 = Dimension(3, 4)
+            problem_dimension_2 = Dimension(4, 3)
+
+            if r.get_dimension() == problem_dimension_1:
+                if direction == self.RIGHT and sense_of_rotation == self.COUNTER_CLOCKWISE:
+                    r1_direction = self.LEFT
+                if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
+                    r2_direction = self.UP
+
+                if direction == self.UP and sense_of_rotation == self.CLOCKWISE:
+                    r2_direction = self.DOWN
+                if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
+                    r1_direction = self.LEFT
+            if r.get_dimension() == problem_dimension_2:
+                if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
+                    r1_direction = self.UP
+                if direction == self.LEFT and sense_of_rotation == self.COUNTER_CLOCKWISE:
+                    r2_direction = self.RIGHT
+
+                if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
+                    r2_direction = self.LEFT
+                if direction == self.DOWN and sense_of_rotation == self.CLOCKWISE:
+                    r1_direction = self.UP
+            
+                
 
             current_rectangle_index = current_direction % 4
             current_rectangle = rectangles[current_rectangle_index]
-            d = self.recursive_fill_map(current_rectangle, not sense_of_rotation, r1_direction, d)
+            d = self.recursive_fill_map(current_rectangle, r1_sense_of_rotation, r1_direction, d)
 
             current_rectangle_index = self.rotate_rectangle_position(direction=current_direction, clockwise_step=rotation_step)
             current_rectangle = rectangles[current_rectangle_index]
-            d = self.recursive_fill_map(current_rectangle, sense_of_rotation, r2_direction, d)
+            d = self.recursive_fill_map(current_rectangle, r2_sense_of_rotation, r2_direction, d)
 
             current_rectangle_index = self.rotate_rectangle_position(direction=current_direction, clockwise_step=rotation_step * 2)
             current_rectangle = rectangles[current_rectangle_index]
-            d = self.recursive_fill_map(current_rectangle, sense_of_rotation, r3_direction, d)
+            d = self.recursive_fill_map(current_rectangle, r3_sense_of_rotation, r3_direction, d)
 
             current_rectangle_index = self.rotate_rectangle_position(direction=current_direction, clockwise_step=rotation_step * 3)
             current_rectangle = rectangles[current_rectangle_index]
-            d = self.recursive_fill_map(current_rectangle, not sense_of_rotation, r4_direction, d)
+            d = self.recursive_fill_map(current_rectangle, r4_sense_of_rotation, r4_direction, d)
 
         else:
             pass
