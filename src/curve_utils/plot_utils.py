@@ -20,7 +20,7 @@ def _create_segments(x: List, y: List) -> List[List]:
     return segments
 
 
-def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0):
+def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
     '''
     Create a line plot from x and y coordinates.
     Takes a list of x coordinates and a list of y coordinates and returns a line plot.
@@ -30,10 +30,15 @@ def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha
     segments = _create_segments(x, y)
     lc = LineCollection(segments, array=z, cmap=cmap, linewidth=linewidth, alpha=alpha)
     
+    plt.rcParams["figure.figsize"] = size
     ax = plt.gca()
     ax.add_collection(lc)
+    
     plt.xlim(min(x) - 0.5, max(x) + 0.5)
     plt.ylim(min(y) - 0.5, max(y) + 0.5)
+    if all_ticks:
+        plt.xticks(np.arange(min(x), max(x) + 1, 1))
+        plt.yticks(np.arange(min(y), max(y) + 1, 1))
     ax.invert_yaxis()
     
     return lc
