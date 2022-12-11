@@ -6,7 +6,7 @@ from src.curve_utils.dimension import Dimension
 from src.curve_utils.rectangle import Rectangle
 
 
-class PseudoPeanoHilbertCurve(Curve):
+class PseudoHilbertCurve(Curve):
     UP: int = 0
     RIGHT: int = 1
     DOWN: int = 2
