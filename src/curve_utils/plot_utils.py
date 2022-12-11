@@ -51,5 +51,5 @@ def get_xy_from_curve(curve: Curve):
 
 
 def plot_curve(num_el, curve: Curve, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
-    x, y = get_xy_from_curve(num_el, curve)
+    x, y = get_xy_from_curve(curve)
     return lineplot(x, y, cmap, linewidth, alpha, size, all_ticks)
