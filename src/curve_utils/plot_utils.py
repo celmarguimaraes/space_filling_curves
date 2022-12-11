@@ -44,8 +44,8 @@ def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha
     return lc
 
 
-def get_xy_from_curve(num_el, curve: Curve):
-    coords = [(curve.get_coordinate(i).x, curve.get_coordinate(i).y) for i in range(num_el)]
+def get_xy_from_curve(curve: Curve):
+    coords = [(curve.get_coordinate(i).x, curve.get_coordinate(i).y) for i in range(curve.number_of_elements)]
     x, y = zip(*coords)
     return x, y
 
