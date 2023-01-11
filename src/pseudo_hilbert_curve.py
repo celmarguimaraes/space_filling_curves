@@ -4,6 +4,7 @@ from typing import List
 from src.curve_utils.coordinate import Coordinate
 from src.curve_utils.dimension import Dimension
 from src.curve_utils.rectangle import Rectangle
+from math import sqrt
 
 
 class PseudoHilbertCurve(Curve):
@@ -32,8 +33,9 @@ class PseudoHilbertCurve(Curve):
         if dimension:
             self.dimension.x = dimension.x
             self.dimension.y = dimension.y
+        # self.map_d_to_xy = self.fill_map_d_to_xy(number_of_elements)
+        self.map_d_to_xy = [Coordinate(0, 0) for _ in range(number_of_elements - 1)]
         self.map = self.fill_map(self.dimension, direction, sense_of_rotation)
-        self.map_d_to_xy = self.fill_map_d_to_xy(number_of_elements)
 
     def fill_map(self, dimension: Dimension, direction: int, sense_of_rotation: bool) -> List:
         self.map = [[0 for _ in range(dimension.y)] for _ in range(dimension.x)]
@@ -66,6 +68,7 @@ class PseudoHilbertCurve(Curve):
 
         if (delta_x == 1 and delta_y == 1):
             self.map[r.x1][r.y1] = d
+            self.map_d_to_xy[d] = Coordinate(r.x1, r.y1)
             d += 1
 
         elif (delta_x == 1 and delta_y > 1):
@@ -83,10 +86,18 @@ class PseudoHilbertCurve(Curve):
 
             y_end = r.y2 if y_start == r.y1 else r.y1
             y = y_start
+
+            if self.map_d_to_xy[d - 1].calculate_distance(Coordinate(r.x1, y)) > sqrt(2):
+                sentido_y = -sentido_y
+                y_start = r.y1 if y_start == r.y2 else r.y2
+                y_end = r.y1 if y_end == r.y2 else r.y2
+
             while y != y_end + sentido_y:
                 self.map[r.x1][y] = d
+                self.map_d_to_xy[d] = Coordinate(r.x1, y)
                 d += 1
                 y += sentido_y
+
 
         elif (delta_x > 1 and delta_y == 1):
             sentido_x = 1
@@ -103,8 +114,15 @@ class PseudoHilbertCurve(Curve):
 
             x_end = r.x2 if x_start == r.x1 else r.x1
             x = x_start
+
+            if self.map_d_to_xy[d - 1].calculate_distance(Coordinate(x, r.y1)) > sqrt(2):
+                sentido_x = -sentido_x
+                x_start = r.x1 if x_start == r.x2 else r.x2
+                x_end = r.x1 if x_end == r.x2 else r.x2
+                
             while x != x_end + sentido_x:
                 self.map[x][r.y1] = d
+                self.map_d_to_xy[d] = Coordinate(x, r.y1)
                 d += 1
                 x += sentido_x
 
@@ -119,6 +137,7 @@ class PseudoHilbertCurve(Curve):
                 y = y_start
                 while y != y_end + sentido_y:
                     self.map[x][y] = d
+                    self.map_d_to_xy[d] = Coordinate(x, y)
                     d += 1
                     y += sentido_y
                 x = r.x2 if x_start == r.x1 else r.x1
@@ -126,6 +145,7 @@ class PseudoHilbertCurve(Curve):
                 y = y_end
                 while y != y_start + sentido_y:
                     self.map[x][y] = d
+                    self.map_d_to_xy[d] = Coordinate(x, y)
                     d += 1
                     y += sentido_y
 
@@ -139,13 +159,17 @@ class PseudoHilbertCurve(Curve):
                         sentido_x = -sentido_x
                     if sentido_x == 1:
                         self.map[r.x1][y] = d
+                        self.map_d_to_xy[d] = Coordinate(r.x1, y)
                         d += 1
                         self.map[r.x2][y] = d
+                        self.map_d_to_xy[d] = Coordinate(r.x2, y)
                         d += 1
                     else:
                         self.map[r.x2][y] = d
+                        self.map_d_to_xy[d] = Coordinate(r.x2, y)
                         d += 1
                         self.map[r.x1][y] = d
+                        self.map_d_to_xy[d] = Coordinate(r.x1, y)
                         d += 1
                     y += sentido_y
 
@@ -160,6 +184,7 @@ class PseudoHilbertCurve(Curve):
                 x = x_start
                 while x != x_end+sentido_x:
                     self.map[x][y] = d
+                    self.map_d_to_xy[d] = Coordinate(x, y)
                     d += 1
                     x += sentido_x
                 y = r.y2 if y_start == r.y1 else r.y1
@@ -167,6 +192,7 @@ class PseudoHilbertCurve(Curve):
                 x = x_end
                 while x != x_start+sentido_x:
                     self.map[x][y] = d
+                    self.map_d_to_xy[d] = Coordinate(x, y)
                     d += 1
                     x += sentido_x
 
@@ -180,13 +206,17 @@ class PseudoHilbertCurve(Curve):
                         sentido_y = -sentido_y
                     if sentido_y == 1:
                         self.map[x][r.y1] = d
+                        self.map_d_to_xy[d] = Coordinate(x, r.y1)
                         d += 1
                         self.map[x][r.y2] = d
+                        self.map_d_to_xy[d] = Coordinate(x, r.y2)
                         d += 1
                     else:
                         self.map[x][r.y2] = d
+                        self.map_d_to_xy[d] = Coordinate(x, r.y2)
                         d += 1
                         self.map[x][r.y1] = d
+                        self.map_d_to_xy[d] = Coordinate(x, r.y1)
                         d += 1
                     x += sentido_x
 
@@ -202,6 +232,7 @@ class PseudoHilbertCurve(Curve):
                 up_clockwise = [[0, 0], [0, 1], [0, 2], [-1, 2], [-2, 2], [-2, 1], [-1, 1], [-1, 0], [-2, 0]]
                 for x, y in up_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.UP and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
@@ -214,6 +245,7 @@ class PseudoHilbertCurve(Curve):
                 up_counter_clockwise = [[0, 0], [1, 0], [1, 1], [0, 1], [0, 2], [1, 2], [2, 2], [2, 1], [2, 0]]
                 for x, y in up_counter_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
                 '''
@@ -227,6 +259,7 @@ class PseudoHilbertCurve(Curve):
                 right_clockwise = [[0, 0], [-1, 0], [-2, 0], [-2, -1], [-2, -2], [-1, -2], [-1, -1], [0, -1], [0, -2]]
                 for x, y in right_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.RIGHT and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
@@ -240,6 +273,7 @@ class PseudoHilbertCurve(Curve):
                 right_counter_clockwise = [[0, 0], [0, 1], [-1, 1], [-1, 0], [-2, 0], [-2, 1], [-2, 2], [-1, 2], [0, 2]]
                 for x, y in right_counter_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.DOWN and sense_of_rotation == self.CLOCKWISE:
                 '''
@@ -252,6 +286,7 @@ class PseudoHilbertCurve(Curve):
                 down_clockwise = [[0, 0], [0, -1], [0, -2], [1, -2], [2, -2], [2, -1], [1, -1], [1, 0], [2, 0]]
                 for x, y in down_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
@@ -264,6 +299,7 @@ class PseudoHilbertCurve(Curve):
                 down_counter_clockwise = [[0, 0], [-1, 0], [-1, -1], [0, -1], [0, -2], [-1, -2], [-2, -2], [-2, -1], [-2, 0]]
                 for x, y in down_counter_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.LEFT and sense_of_rotation == self.CLOCKWISE:
                 '''
@@ -277,6 +313,7 @@ class PseudoHilbertCurve(Curve):
                 left_clockwise = [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2], [1, 2], [1, 1], [0, 1], [0, 2]]
                 for x, y in left_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             elif direction == self.LEFT and sense_of_rotation == self.COUNTER_CLOCKWISE:
                 '''
@@ -290,6 +327,7 @@ class PseudoHilbertCurve(Curve):
                 left_counter_clockwise = [[0, 0], [0, -1], [1, -1], [1, 0], [2, 0], [2, -1], [2, -2], [1, -2], [0, -2]]
                 for x, y in left_counter_clockwise:
                     self.map[x_start + x][y_start + y] = d
+                    self.map_d_to_xy[d] = Coordinate(x_start + x, y_start + y)
                     d += 1
             else:
                 raise Exception("Invalid sense of rotation or direction")
@@ -329,30 +367,32 @@ class PseudoHilbertCurve(Curve):
             r3_sense_of_rotation = sense_of_rotation
             r4_sense_of_rotation = not sense_of_rotation
 
-            problem_dimension_1 = Dimension(3, 4)
-            problem_dimension_2 = Dimension(4, 3)
+            
 
-            if r.get_dimension() == problem_dimension_1:
-                if direction == self.RIGHT and sense_of_rotation == self.COUNTER_CLOCKWISE:
-                    r1_direction = self.LEFT
-                if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
-                    r2_direction = self.UP
+            # problem_dimension_1 = Dimension(3, 4)
+            # problem_dimension_2 = Dimension(4, 3)
 
-                if direction == self.UP and sense_of_rotation == self.CLOCKWISE:
-                    r2_direction = self.DOWN
-                if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
-                    r1_direction = self.LEFT
+            # if r.get_dimension() == problem_dimension_1:
+            #     if direction == self.RIGHT and sense_of_rotation == self.COUNTER_CLOCKWISE:
+            #         r1_direction = self.LEFT
+            #     if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
+            #         r2_direction = self.UP
 
-            if r.get_dimension() == problem_dimension_2:
-                if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
-                    r1_direction = self.UP
-                if direction == self.LEFT and sense_of_rotation == self.COUNTER_CLOCKWISE:
-                    r2_direction = self.RIGHT
+            #     if direction == self.UP and sense_of_rotation == self.CLOCKWISE:
+            #         r2_direction = self.DOWN
+            #     if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
+            #         r1_direction = self.LEFT
 
-                if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
-                    r2_direction = self.LEFT
-                if direction == self.DOWN and sense_of_rotation == self.CLOCKWISE:
-                    r1_direction = self.UP
+            # if r.get_dimension() == problem_dimension_2:
+            #     if direction == self.DOWN and sense_of_rotation == self.COUNTER_CLOCKWISE:
+            #         r1_direction = self.UP
+            #     if direction == self.LEFT and sense_of_rotation == self.COUNTER_CLOCKWISE:
+            #         r2_direction = self.RIGHT
+
+            #     if direction == self.RIGHT and sense_of_rotation == self.CLOCKWISE:
+            #         r2_direction = self.LEFT
+            #     if direction == self.DOWN and sense_of_rotation == self.CLOCKWISE:
+            #         r1_direction = self.UP
             
                 
 

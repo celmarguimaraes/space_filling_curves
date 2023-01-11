@@ -1,4 +1,5 @@
 from src.curve_utils.pair import Pair
+from math import sqrt
 
 
 class Coordinate(Pair):
@@ -22,3 +23,9 @@ class Coordinate(Pair):
 
     def __str__(self):
         return f"({self.x}, {self.y})"
+
+    def __repr__(self) -> str:
+        return f"({self.x}, {self.y})"
+
+    def calculate_distance(self, other: 'Coordinate') -> float:
+        return sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
