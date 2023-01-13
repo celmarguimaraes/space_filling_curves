@@ -15,6 +15,9 @@ class Rectangle:
     def __str__(self) -> str:
         return f'{self.x1}, {self.y1} -> {self.x2}, {self.y2}'
 
+    def __repr__(self) -> str:
+        return f'{self.x1}, {self.y1} -> {self.x2}, {self.y2}'
+
     def get_height(self):
         return abs(self.y2 - self.y1 + 1)
 
