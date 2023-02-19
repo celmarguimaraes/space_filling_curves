@@ -8,6 +8,24 @@ from math import sqrt
 
 
 class PseudoHilbertCurve(Curve):
+    '''
+    Classe para Curva Pseudo Hilbert
+    ____     _______________
+        |   |               |
+    ____|   |____    ____   |
+    |           |    |  |   |
+    |___________|    |  |___|
+                     |
+     ___     ___     |______
+    |   |   |   |           |
+    |   |___|   |    ____   |
+    \          /     |  |   |
+    __\      /_______|  |___|
+
+
+
+    '''
+
 
     '''
     Direções das concavidades dos "U"s

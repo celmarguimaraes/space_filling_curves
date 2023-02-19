@@ -22,8 +22,10 @@ def _create_segments(x: List, y: List) -> List[List]:
 
 def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
     '''
-    Create a line plot from x and y coordinates.
-    Takes a list of x coordinates and a list of y coordinates and returns a line plot.
+    Cria um gráfico de linha com as listas de x e y de cada coordenada.
+    coolwarm: começa no azul e termina no vermelho
+    o ponto (0, 0) começa no canto superior esquerdo como funciona nas matrizes em 
+    computação e não no canto inferior esquerdo como começam no eixo cartesiano.
     '''
     z = np.linspace(0.0, 1.0, len(x))
     
