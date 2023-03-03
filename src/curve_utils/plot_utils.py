@@ -6,6 +6,9 @@ from matplotlib.collections import LineCollection
 from src.curve import Curve
 
 
+# TODO: Arrumar plot para dimenões variadas
+
+
 def _create_segments(x: List, y: List) -> List[List]:
     '''
     Create segments from x and y coordinates.
@@ -52,6 +55,6 @@ def get_xy_from_curve(curve: Curve):
     return x, y
 
 
-def plot_curve(num_el, curve: Curve, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
+def plot_curve(curve: Curve, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
     x, y = get_xy_from_curve(curve)
     return lineplot(x, y, cmap, linewidth, alpha, size, all_ticks)
