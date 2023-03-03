@@ -9,8 +9,6 @@ from src.curve_utils.dimension import Dimension
 
 
 class HilbertCurve(Curve):
-    map_d_to_xy: List[Coordinate]
-    map_xy_to_d: List[List[int]]
     curve_generator: HC
 
     def __init__(self, num_of_elements: int, dimension: Dimension) -> None:
