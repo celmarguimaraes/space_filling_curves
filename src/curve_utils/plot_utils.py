@@ -2,6 +2,7 @@ from typing import List
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
+from src.curve_utils.dimension import Dimension
 
 from src.curve import Curve
 
@@ -23,7 +24,7 @@ def _create_segments(x: List, y: List) -> List[List]:
     return segments
 
 
-def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
+def lineplot(x: List, y: List, x_max = None, y_max = None,  cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
     '''
     Cria um gráfico de linha com as listas de x e y de cada coordenada.
     coolwarm: começa no azul e termina no vermelho
@@ -39,11 +40,12 @@ def lineplot(x: List, y: List, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha
     ax = plt.gca()
     ax.add_collection(lc)
     
-    plt.xlim(min(x) - 0.5, max(x) + 0.5)
-    plt.ylim(min(y) - 0.5, max(y) + 0.5)
-    if all_ticks:
-        plt.xticks(np.arange(min(x), max(x) + 1, 1))
-        plt.yticks(np.arange(min(y), max(y) + 1, 1))
+    plt.xlim(-0.5, max(x) + 0.5) if x_max is None else plt.xlim(-0.5, x_max)
+    plt.ylim(-0.5, max(y) + 0.5) if y_max is None else plt.ylim(-0.5, y_max)
+
+    # if all_ticks:
+    plt.xticks(np.arange(0, max(x) + 1, 1)) if x_max is None else plt.xticks(np.arange(0, x_max + 1, 1))
+    plt.yticks(np.arange(0, max(y) + 1, 1)) if y_max is None else plt.yticks(np.arange(0, y_max + 1, 1))
     ax.invert_yaxis()
     
     return lc
@@ -57,4 +59,4 @@ def get_xy_from_curve(curve: Curve):
 
 def plot_curve(curve: Curve, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1.0, size=(5, 5), all_ticks=False):
     x, y = get_xy_from_curve(curve)
-    return lineplot(x, y, cmap, linewidth, alpha, size, all_ticks)
+    return lineplot(x, y, curve.dimension.x, curve.dimension.y, cmap, linewidth, alpha, size, all_ticks)
