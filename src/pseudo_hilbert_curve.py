@@ -413,12 +413,6 @@ class PseudoHilbertCurve(Curve):
             r3_sense_of_rotation = sense_of_rotation
             r4_sense_of_rotation = not sense_of_rotation
 
-            print(top_left, ': ', r1_direction,  r1_sense_of_rotation)
-            print(bottom_left, ': ', r2_direction,  r2_sense_of_rotation)
-            print(bottom_right, ': ', r3_direction,  r3_sense_of_rotation)
-            print(top_right, ': ', r4_direction,  r4_sense_of_rotation)
-            print('--------------------------------')
-
             current_rectangle_index = current_direction % 4
             current_rectangle = rectangles[current_rectangle_index]
             d = self.recursive_fill_map(current_rectangle, r1_sense_of_rotation, r1_direction, d)

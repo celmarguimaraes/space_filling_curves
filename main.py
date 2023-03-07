@@ -1,22 +1,15 @@
-from src.pseudo_hilbert_curve import PseudoHilbertCurve
-from src.snake_curve import SnakeCurve
+from src.curve_utils.curve_validator import validate_curve
 from src.curve_utils.dimension import Dimension
-from src.curve_utils.plot_utils import plot_curve
-from matplotlib import pyplot as plt
-from src.curve_utils.plot_utils import get_xy_from_curve
+from src.pseudo_hilbert_curve import PseudoHilbertCurve
+from src.curve_utils.curve_generator import generate_curves, save_100_pseudo_hilbert_curves, calculate_distances_100_pseudo_hilbert_curves, validate_100_pseudo_hilbert_curves
 
-# Caso problemático com solução implementada
-# width = 7
-# height = 3
+# for key, value in calculate_distances_100_pseudo_hilbert_curves().items():
+#     print(key, value)
 
-# Caso problemático sem solução implementada
-width = 130
-height = 3
-dim = Dimension(width, height)
-num_el = width * height
+# curve = PseudoHilbertCurve(80, Dimension(40, 2))
+# print(validate_curve(curve))
 
-curve = PseudoHilbertCurve(num_el, dim, 3, True)
+save_100_pseudo_hilbert_curves()
 
-print(curve.map_d_to_xy)
-plot_curve(num_el, curve)
-plt.show()
+# for curve in validate_100_pseudo_hilbert_curves():
+#     print(curve)
