@@ -25,6 +25,9 @@ def validate_curve(curve: Curve):
         if c1.get_x() == c2.get_x() and distance != 1:
             problem_coordinates.append(f'{c1}x{c2}')
             is_error = True
+        elif c1.get_y() == c2.get_y() and distance != 1:
+            problem_coordinates.append(f'{c1}x{c2}')
+            is_error = True
     return {'is_error': is_error, 'problem_coordinates': problem_coordinates}
         
 
