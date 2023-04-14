@@ -22,10 +22,10 @@ class Coordinate(Pair):
         return self.x == other.x and self.y == other.y
 
     def __str__(self):
-        return f"({self.x}, {self.y})"
+        return f"Coordinate({self.x}, {self.y})"
 
     def __repr__(self) -> str:
-        return f"({self.x}, {self.y})"
+        return f"Coordinate({self.x}, {self.y})"
 
     def calculate_distance(self, other: 'Coordinate') -> float:
         return sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
