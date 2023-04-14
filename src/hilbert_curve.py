@@ -22,6 +22,9 @@ class HilbertCurve(Curve):
         super().__init__(num_of_elements, dimension)
         self.curve_generator = HC(p=log2(dimension.x), n=2)
 
+    @classmethod
+    def from_dimension(cls, dimension: Dimension):
+        return cls(dimension.x * dimension.y, dimension)
 
     def is_power_of_2(self, number: int):
         return log2(number) - int(log2(number)) == 0

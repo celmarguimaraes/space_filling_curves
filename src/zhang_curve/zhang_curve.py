@@ -17,6 +17,10 @@ class ZhangCurve(Curve):
         #     raise ValueError('Número de elementos não pode ser maior que a quantidade de coordenadas disponíveis na dimensão.')
         super().__init__(num_of_elements, dimension)
         self.curve_generator = PseudoHilbert(dimension.x, dimension.y)
+
+    @classmethod
+    def from_dimension(cls, dimension: Dimension):
+        return cls(dimension.x * dimension.y, dimension)
         
     
     def get_d(self, coordinate: Coordinate) -> int:

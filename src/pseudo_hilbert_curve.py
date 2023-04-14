@@ -83,6 +83,10 @@ class PseudoHilbertCurve(Curve):
         self.map_d_to_xy = [Coordinate(0, 0) for _ in range(number_of_elements)]
         self.map = self.fill_map(self.dimension, direction, sense_of_rotation)
 
+    @classmethod
+    def from_dimension(cls, dimension: Dimension, direction: int = 0, sense_of_rotation: bool = False) -> 'PseudoHilbertCurve':
+        return cls(dimension.x * dimension.y, dimension, direction, sense_of_rotation)
+
     def fill_map(self, dimension: Dimension, direction: int, sense_of_rotation: bool) -> List:
         self.map = [[0 for _ in range(dimension.y)] for _ in range(dimension.x)]
         self.recursive_fill_map(Rectangle(0, 0, dimension.x - 1, dimension.y - 1), sense_of_rotation=sense_of_rotation, direction=direction, d=0)
@@ -461,12 +465,12 @@ class PseudoHilbertCurve(Curve):
         '''Retorna as coordenadas de um ponto da curva de Pseudo-Hilbert'''
         return self.map_d_to_xy[d]
 
-    def get_d(self, x: int, y: int) -> int:
+    def get_d(self, coord: Coordinate) -> int:
         '''Retorna a distância de um ponto da curva de Pseudo-Hilbert'''
-        if x >= len(self.map) or y >= len(self.map[0]) or x < 0 or y < 0:
+        if coord.x >= len(self.map) or coord.y >= len(self.map[0]) or coord.x < 0 or coord.y < 0:
             return -1
         else:
-            return self.map[x][y]
+            return self.map[coord.x][coord.y]
 
     def get_number_of_elements(self):
         return self.number_of_elements

@@ -4,13 +4,16 @@ from src.curve_utils.dimension import Dimension
 from src.curve_utils.coordinate import Coordinate
 
 class SnakeCurve(Curve):
-    def __init__(self, num_of_elements:int, dimension:Dimension) -> None:
-        super().__init__(num_of_elements, dimension)
+    def __init__(self, number_of_elements:int, dimension:Dimension) -> None:
+        super().__init__(number_of_elements, dimension)
+
+    @classmethod
+    def from_dimension(cls, dimension:Dimension) -> 'SnakeCurve':
+        return cls(dimension.x * dimension.y, dimension)
 
     def get_d(self, coordinate:Coordinate) -> int:
         d:int = coordinate.y * self.get_dimension().x
 
-        #NOTE:Talk to Professor about this. (5, 5) == (4, 4)
         if coordinate.x * coordinate.y == self.get_number_of_elements():
             return -1
 

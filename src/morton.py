@@ -35,6 +35,10 @@ class MortonCurve(Curve):
         self.map_xy_to_d = [[None for _ in range(self.dimension.x)] for _ in range(self.dimension.y)]
         self.map_d_to_xy = [None for _ in range(self.number_of_elements)]
         self.fill_map()
+
+    @classmethod
+    def from_dimension(cls, dimension: Dimension):
+        return cls(dimension.x * dimension.y, dimension)
     
 
     def is_power_of_2(self, number: int):
