@@ -80,8 +80,8 @@ def validate_100_pseudo_hilbert_curves():
     Valida curvas com dimensões de 1x1 à 10x10
     '''
     valid_curves = []
-    for i in range(1, 11):
-        for j in range(1, 11):
+    for i in range(1, 20):
+        for j in range(1, 20):
             curve = PseudoHilbertCurve(i*j, Dimension(i, j))
             valid_curves.append(validate_curve(curve))
     return valid_curves
