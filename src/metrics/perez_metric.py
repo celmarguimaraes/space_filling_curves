@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def perez_metric(curve: Curve):
     perez_sum = 0
     for i in range(curve.number_of_elements):
-        for j in range(i, curve.number_of_elements):
+        for j in range(i + 1, curve.number_of_elements):
             try:
                 perez_sum += abs(i - j)/Coordinate.calculate_distance(curve.get_coordinate(i), curve.get_coordinate(j))
             except:

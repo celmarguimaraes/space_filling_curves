@@ -64,5 +64,5 @@ def plot_curve(curve: Curve, cmap=plt.get_cmap('coolwarm'), linewidth=3, alpha=1
 
 def plot_heatmap(heatmatrix: List[List]):
     ax, fig = plt.subplots()
-    fig.imshow(heatmatrix, cmap='winter', interpolation='nearest')
+    fig.imshow(heatmatrix, cmap='bwr', interpolation='nearest')
     return fig
