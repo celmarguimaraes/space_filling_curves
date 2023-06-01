@@ -456,11 +456,6 @@ class PseudoHilbertCurve(Curve):
                     self.map_d_to_xy[d] = Coordinate(x, y)
         return self.map_d_to_xy
 
-    def define_dimension(self, number_of_elements: int) -> Dimension:
-        '''Define as dimensões da área a ser preenchida  de acordo com o número de elementos'''
-        d = math.ceil(math.sqrt(number_of_elements))
-        return Dimension(d, d)
-
     def get_coordinate(self, d: int) -> Coordinate:
         '''Retorna as coordenadas de um ponto da curva de Pseudo-Hilbert'''
         return self.map_d_to_xy[d]
@@ -477,3 +472,7 @@ class PseudoHilbertCurve(Curve):
 
     def get_dimension(self):
         return self.dimension
+
+    def define_dimension(self, number_of_elements:int) -> Dimension:
+       d = math.ceil(math.sqrt(number_of_elements))
+       return Dimension(d, d)

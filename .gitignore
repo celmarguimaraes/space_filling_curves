@@ -132,3 +132,5 @@ dmypy.json
 media/
 *.png
 *.jpg
+results/
+plots/
