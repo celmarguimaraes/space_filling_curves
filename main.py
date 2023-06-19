@@ -7,8 +7,9 @@ from src.metrics.spearman_metric import spearman_metric, cluster_spearman_metric
 from src.snake_curve import SnakeCurve
 from src.morton import MortonCurve
 from src.curve_utils.dimension import Dimension
-from src.metrics.metrics import metric_1, metric_2
+from src.metrics.metrics import metric_neighbor_from_curve, metric_neighbor_from_d
 from src.curve_utils.plot_utils import plot_curve
+from src.curve_utils.curve_validator import validate_curve
 
 from matplotlib import pyplot as plt
 
@@ -219,8 +220,123 @@ from matplotlib import pyplot as plt
 # print("Morton: ", morton_metric_2)
 # print()
 
-curve = PseudoHilbertCurve.from_dimension(Dimension(100, 100))
+height = 8
+width = 8
+# curve = ZhangCurve(width*height, Dimension(width, height))
+# curve = PseudoHilbertCurve(width*height, Dimension(width, height), 3, True)
+# curve = SnakeCurve(width*height, Dimension(width, height))
+curve = MortonCurve(width*height, Dimension(width, height))
 
 fig, ax = plt.subplots(figsize=(10, 10))
 ax.add_collection(plot_curve(curve))
 plt.show()
+
+
+# for i in range(90, 100):
+#     for j in range(90, 100):
+#         curve = PseudoHilbertCurve(i*j, Dimension(i, j), 3, True)
+#         result = validate_curve(curve)
+#         print(f"Width: {i}, Height: {j}")
+#         print(result)
+#         print()
+
+
+# w = 4
+# h = 4
+# curve1 = HilbertCurve(w*h, Dimension(w, h))
+# curve2 = MortonCurve(w*h, Dimension(w, h))
+# curve3 = SnakeCurve(w*h, Dimension(w, h))
+# curve4 = ZhangCurve(w*h, Dimension(w, h))
+# curve5 = PseudoHilbertCurve(w*h, Dimension(w, h), 3, True)
+
+# print("Perez Mean")
+# print(perez_mean(curve1))
+# print(perez_mean(curve2))
+# print(perez_mean(curve3))
+# print(perez_mean(curve4))
+# print(perez_mean(curve5))
+# print()
+
+
+# w = 8
+# h = 8
+# curve1 = HilbertCurve(w*h, Dimension(w, h))
+# curve2 = MortonCurve(w*h, Dimension(w, h))
+# curve3 = SnakeCurve(w*h, Dimension(w, h))
+# curve4 = ZhangCurve(w*h, Dimension(w, h))
+# curve5 = PseudoHilbertCurve(w*h, Dimension(w, h), 3, True)
+
+# print("Perez Mean")
+# print("%.3f" % perez_mean(curve1), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve2), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve3), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve4), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve5), file=open("results.txt", "a"))
+# print()
+
+# w = 50
+# h = 50
+# curve1 = HilbertCurve(w*h, Dimension(w, h))
+# curve2 = MortonCurve(w*h, Dimension(w, h))
+# curve3 = SnakeCurve(w*h, Dimension(w, h))
+# curve4 = ZhangCurve(w*h, Dimension(w, h))
+# curve5 = PseudoHilbertCurve(w*h, Dimension(w, h), 0, True)
+
+# print("Perez Mean")
+# print("%.3f" % perez_mean(curve1), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve2), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve3), file=open("results.txt", "a"))
+# print("%.3f" % perez_mean(curve4), file=open("results.txt", "a"))
+# print("KSC: %.3f" % perez_mean(curve5), file=open("results.txt", "a"))
+# print()
+
+# widths = [4, 8, 16, 32, 4, 5, 6, 8, 4, 10, 10, 4, 12, 8, 15, 50]
+# heights = [4, 8, 16, 32, 5, 4, 6, 4, 8, 10, 4, 10, 8, 12, 15, 50]
+
+# with open("results.txt", "w") as file:
+#     file.write(f"Perez Metric\n")
+
+
+# for w, h in zip(widths, heights):
+#     curve1 = None
+#     curve2 = None
+#     try:
+#         curve1 = HilbertCurve(w*h, Dimension(w, h))
+#         curve2 = MortonCurve(w*h, Dimension(w, h))
+#     except:
+#         pass
+#     curve3 = SnakeCurve(w*h, Dimension(w, h))
+#     curve4 = ZhangCurve(w*h, Dimension(w, h))
+#     curve5 = PseudoHilbertCurve(w*h, Dimension(w, h), 0, True)
+
+#     with open("results.txt", "a") as file:
+#         file.write(f"Width: {w}, Height: {h}\n")
+        
+#     if curve1 is not None and curve2 is not None:
+#         print("Hilbert: %.0f" % metric_neighbor_from_curve(curve1), file=open("results.txt", "a"))
+#         print("Morton: %.0f" % metric_neighbor_from_curve(curve2), file=open("results.txt", "a"))
+#     else:
+#         print("Hilbert: x", file=open("results.txt", "a"))
+#         print("Morton: x", file=open("results.txt", "a"))
+#     print("Snake: %.0f" % metric_neighbor_from_curve(curve3), file=open("results.txt", "a"))
+#     print("Zhnag: %.0f" % metric_neighbor_from_curve(curve4), file=open("results.txt", "a"))
+#     print("KSC: %.0f" % metric_neighbor_from_curve(curve5), file=open("results.txt", "a"))
+#     print(file=open("results.txt", "a"))
+
+# w = 4
+# h = 10
+# curve1 = HilbertCurve(w*h, Dimension(w, h))
+# curve2 = MortonCurve(w*h, Dimension(w, h))
+# curve3 = SnakeCurve(w*h, Dimension(w, h))
+# curve4 = ZhangCurve(w*h, Dimension(w, h))
+# curve5 = PseudoHilbertCurve(w*h, Dimension(w, h), 3, True)
+
+# with open("results.txt", "w") as file:
+#     file.write(f"Width: {w}, Height: {h}\n")
+# print("avg_anns")
+# print("%.3f" % avg_anns(curve1), file=open("results.txt", "a"))
+# print("%.3f" % avg_anns(curve2), file=open("results.txt", "a"))
+# print("%.3f" % avg_anns(curve3), file=open("results.txt", "a"))
+# print("%.3f" % avg_anns(curve4), file=open("results.txt", "a"))
+# print("%.3f" % avg_anns(curve5), file=open("results.txt", "a"))
+# print()
