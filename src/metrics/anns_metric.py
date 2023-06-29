@@ -12,7 +12,10 @@ from math import sqrt
 
 def average_nearest_neighbor_stretch(curve: Curve, coord: Coordinate):
     neighbors = get_coord_neighbors(curve, coord)
-    distances = [(curve.get_d(coord) - curve.get_d(neighbor)) ** 2 for neighbor in neighbors]
+    distances = [
+        (curve.get_d(coord) - curve.get_d(neighbor)) ** 2 
+        for neighbor in neighbors
+    ]
     return sum(distances) / len(distances)
 
 def avg_anns(curve: Curve):
