@@ -64,8 +64,3 @@ class MortonCurve(Curve):
 
     def get_coordinate(self, d: int) -> Coordinate:
         return self.map_d_to_xy[d]
-
-
-    def define_dimension(self, number_of_elements:int) -> Dimension:
-       d = math.ceil(math.sqrt(number_of_elements))
-       return Dimension(d, d)

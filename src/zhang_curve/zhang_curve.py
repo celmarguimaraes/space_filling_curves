@@ -31,7 +31,3 @@ class ZhangCurve(Curve):
         coord = self.curve_generator.index_to_coordinate[d]
         return Coordinate(coord[0], coord[1])
     
-    def define_dimension(self, number_of_elements:int) -> Dimension:
-       d = math.ceil(math.sqrt(number_of_elements))
-       return Dimension(d, d)
-        

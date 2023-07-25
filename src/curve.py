@@ -23,6 +23,3 @@ class Curve(ABC):
     def get_dimension(self) -> Dimension:
         return self.dimension
 
-    @abstractmethod
-    def define_dimension(self, number_of_elements:int) -> Dimension:
-        pass

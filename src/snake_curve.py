@@ -33,7 +33,3 @@ class SnakeCurve(Curve):
             x = (dimension.x - 1) - x
 
         return Coordinate(x, y)
-
-    def define_dimension(self, number_of_elements:int) -> Dimension:
-       d = math.ceil(math.sqrt(number_of_elements))
-       return Dimension(d, d)
